@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Arena Calculator</title>
+    <script src="https://unpkg.com/vue@3"></script>
+
+</head>
+
+<body>
+
+
+    <div id="app">
+        <div class="flex-container">
+            <div class="left-column">
+                <img src="images/icon.png" class="icon">
+                <div class="ac">
+                    <h1>Arena Calculator</h1>
+                </div>
+                <div class="info">
+                    Team rating:
+                    <input type="text" v-model="rating" :class="className2" maxlength="4">
+                </div>
+                <div class="ts">
+                    <label>Team Size: </label>
+                    <select select v-model="bracket" :class="className3">
+
+                        <option value="1">2v2</option>
+                        <option value="2">3v3</option>
+                        <option value="3">5v5</option>
+                    </select>
+                </div>
+
+
+                 
+                <label>Arena points: </label>
+                <template v-if="rating && rating > 0">
+                    <span class ="pointz" style="margin-left:28px;">{{ points }}</span>
+                    
+                </template>
+
+                <div>
+                    <button :class="className" @click="popupShow = !popupShow">Info</button>
+                    <button :class="className" @click="onClick">{{buttonLabel}}</button>
+                    <div v-show="popupShow" class="popup">
+                        <h1>Information</h1>
+                        <p class="infotext" v-show="popupShow">In World of Warcraft players are able to create a team and fight other players in an arena.
+                            Teams gain or lose rating depending on whether they win or lose, similar to the Elo rating system used in chess. Players that participate in arena battles
+                            receive points each week which they are able to spend on upgrading their character's equipment. The higher a team's rating, the more points a player will receive.
+                            Players will only receive points from one team, 2v2, 3v3, or 5v5 - depending on which team yields the highest points.
+                        </p>
+                        <p>This calculator can be used to work out how many points a player is going to receive.
+                            Simply enter a rating and select a team size. Choose TBC or WOTLK depending on which game version you are playing.
+                        </p>
+                        <p style="color:#838891;">Arena team ratings are typically between 1300 - 2500</p>
+                        <button :class="className" v-show="popupShow" @click="popupShow = !popupShow" id="close_button">Close</button>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="right-column">
+                <img class="pic" :src="image">
+                
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+
+        Vue.createApp({
+            data() {
+                return {
+                    rating: '',
+                    popupShow: false,
+                    image: 'images/wow1.jpg',
+                    className: 'btn',
+                    className2: 'tr',
+                    className3: 'form-control',
+                    buttonLabel: 'TBC',
+                    TWOS_BRACKET: 1,
+                    THREES_BRACKET: 2,
+                    FIVES_BRACKET: 3,
+                    bracket: 1
+
+                }
+            },
+            computed: {
+                points() {
+                    let points = 0;
+                    if (this.rating)
+
+                        if (this.rating < 1000) {
+                            points = 0.22 * this.rating + 14;
+                        } else {
+                            points = 1150 / (1 + 1639.28 * Math.pow(2.71828, -0.00412 * this.rating)) + 356
+                        }
+
+                    if (this.bracket == this.TWOS_BRACKET) {
+                        points = points * 0.76;
+
+                    }
+                    if (this.bracket == this.THREES_BRACKET) {
+                        points = points * 0.88;
+
+                    }
+                    if (this.buttonLabel == 'WOTLK') {
+                        points = points * 0.95;
+                    }
+                        
+
+                        return Math.round(points);
+
+
+
+                    }
+                },
+                methods: {
+                    onClick() {
+                        this.show = !this.show;
+                        if (this.show) {
+                            this.image = 'images/wow2.jpg';
+                            this.className = 'btn2';
+                            this.className2 = 'tr2';
+                            this.className3 = 'form-control2';
+                            this.buttonLabel = 'WOTLK';
+                        } else {
+                            this.image = 'images/wow1.jpg';
+                            this.className = 'btn';
+                            this.className2 = 'tr';
+                            this.className3 = 'form-control';
+                            this.buttonLabel = 'TBC';
+                        }
+                    }
+
+
+                }
+
+
+            }).mount('#app');
+
+
+
+
+    </script>
+</body>
+
+</html>
+<style>
+    body,
+    html {
+        font-family: 'poppins', sans-serif;
+    }
+
+    body {
+        margin: 0;
+        background-image: linear-gradient(76.3deg, rgba(44, 62, 78, 1) 12.6%, rgba(69, 103, 131, 1) 82.8%);
+        background-attachment: fixed;
+    }
+
+    input[type="text"].tr {
+
+        background-color: #2a2f3b;
+        width: 65px;
+        border: 2px #4562a5 solid;
+        border-radius: 0.5em;
+        color: white;
+        margin-left: 30px;
+        
+
+
+    }
+
+    input[type="text"].tr2 {
+
+        background-color: #2a2f3b;
+        width: 65px;
+        border: 2px #63a545 solid;
+        border-radius: 0.5em;
+        color: white;
+        margin-left: 30px;
+
+
+    }
+
+
+    .flex-container {
+
+        display: flex;
+        flex-direction: row;
+        background-color: #222831;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        border-radius: 20px;
+        max-width: 500px;
+        height: 400px;
+        margin: 200px auto 100px;
+        color: white;
+        white-space: nowrap;
+
+    }
+
+    .popup {
+        display: grid;
+        place-items: center;
+        margin-left: -40px;
+        margin-top: -370px;
+        position: absolute;
+        background-color: #222831;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        border-radius: 20px;
+        width: 500px;
+        height: 500px;
+        color: #fff;
+        white-space: normal;
+        z-index: 20;
+        padding: 45px 45px;
+        font-size: 14px;
+    }
+
+     #close_button {
+        margin-top: 20px;
+    }
+
+    .ac {
+        margin-bottom: -70px;
+        margin-left: -10px;
+    }
+
+    .info {
+        margin-top: 130px;
+        margin-bottom: 30px;
+
+
+    }
+
+
+    .pic {
+
+        width: 283px;
+
+        height: 430px;
+        border-radius: 3%;
+        margin-top: -16px;
+        margin-left: -10px;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .illidan {
+
+        margin-left: 10px;
+        margin-top: 20px;
+    }
+
+    .left-column {
+        margin-left: 40px;
+
+    }
+
+    .right-column {
+        margin-left: 40px;
+        max-height: 500px;
+        position: relative;
+
+    }
+
+    .ts {
+        margin-bottom: 30px;
+    }
+
+    .form-control {
+        margin-left: 46px;
+        background: #2a2f3b;
+        color: #fff;
+        width: 75px;
+        height: 23px;
+        border: 2px #4562a5 solid;
+        border-radius: 0.5em;
+        cursor: pointer;
+    }
+
+    .form-control2 {
+        margin-left: 46px;
+        background: #2a2f3b;
+        color: #fff;
+        width: 75px;
+        height: 23px;
+        border: 2px #63a545 solid;
+        border-radius: 0.5em;
+        cursor: pointer;
+    }
+
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .btn {
+        margin-top: 60px;
+        margin-left: 5px;
+
+        font-family: 'poppins', sans-serif;
+        background: #222831;
+        border: 2px #4562a5 solid;
+        cursor: pointer;
+        border-radius: 0.5em;
+        padding: 5px 25px;
+        background-size: 200% auto;
+        color: white;
+        transition: 0.5s;
+        width: 100px;
+
+
+    }
+
+    .btn2 {
+        margin-top: 60px;
+        margin-left: 5px;
+        font-family: 'poppins', sans-serif;
+        background: #222831;
+        border: 2px #63a545 solid;
+        cursor: pointer;
+        border-radius: 0.5em;
+        padding: 5px 25px;
+        background-size: 200% auto;
+        color: white;
+        transition: 0.5s;
+        width: 100px;
+    }
+
+.icon {
+    position: absolute;
+    margin-top: 228px;
+    margin-left: 190px;
+    z-index: 2;
+    width: 20px;
+    height: 20px;
+    
+}
+
+
+    .btn2:hover {
+        background: #838891;
+
+    }
+
+
+
+    .btn:hover {
+        background: #838891;
+
+    }
+
+</style>
