@@ -80,13 +80,14 @@
                     popupShow: false,
                     image: 'images/wow1.jpg',
                     className: 'btn',
-                    className2: 'tr',
-                    className3: 'form-control',
+                    className2: 'team-rating-wotlk',
+                    className3: 'form-control-wotlk',
                     buttonLabel: 'TBC',
                     TWOS_BRACKET: 1,
                     THREES_BRACKET: 2,
                     FIVES_BRACKET: 3,
-                    bracket: 1
+                    bracket: 1,
+                    show: false,
 
                 }
             },
@@ -126,14 +127,14 @@
                         if (this.show) {
                             this.image = 'images/wow2.jpg';
                             this.className = 'btn2';
-                            this.className2 = 'tr2';
-                            this.className3 = 'form-control2';
+                            this.className2 = 'team-rating-tbc';
+                            this.className3 = 'form-control-tbc';
                             this.buttonLabel = 'WOTLK';
                         } else {
                             this.image = 'images/wow1.jpg';
                             this.className = 'btn';
-                            this.className2 = 'tr';
-                            this.className3 = 'form-control';
+                            this.className2 = 'team-rating-wotlk';
+                            this.className3 = 'form-control-wotlk';
                             this.buttonLabel = 'TBC';
                         }
                     }
@@ -163,7 +164,7 @@
         background-attachment: fixed;
     }
 
-    input[type="text"].tr {
+    input[type="text"].team-rating-wotlk {
 
         background-color: #2a2f3b;
         width: 65px;
@@ -176,7 +177,7 @@
 
     }
 
-    input[type="text"].tr2 {
+    input[type="text"].team-rating-tbc {
 
         background-color: #2a2f3b;
         width: 65px;
@@ -272,7 +273,7 @@
         margin-bottom: 30px;
     }
 
-    .form-control {
+    .form-control-wotlk {
         margin-left: 46px;
         background: #2a2f3b;
         color: #fff;
@@ -283,7 +284,7 @@
         cursor: pointer;
     }
 
-    .form-control2 {
+    .form-control-tbc {
         margin-left: 46px;
         background: #2a2f3b;
         color: #fff;
