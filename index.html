@@ -15,14 +15,14 @@
         <div class="flex-container">
             <div class="left-column">
                 <img src="images/icon.png" class="icon">
-                <div class="ac">
+                <div class="left-column-title">
                     <h1>Arena Calculator</h1>
                 </div>
                 <div class="info">
                     Team rating:
                     <input type="text" v-model="rating" :class="className2" maxlength="4">
                 </div>
-                <div class="ts">
+                <div class="team-size">
                     <label>Team Size: </label>
                     <select select v-model="bracket" :class="className3">
 
@@ -36,7 +36,7 @@
                  
                 <label>Arena points: </label>
                 <template v-if="rating && rating > 0">
-                    <span class ="pointz" style="margin-left:28px;">{{ points }}</span>
+                    <span class ="arena-points" style="margin-left:28px;">{{ points }}</span>
                     
                 </template>
 
@@ -227,7 +227,7 @@
         margin-top: 20px;
     }
 
-    .ac {
+    .left-column-title {
         margin-bottom: -70px;
         margin-left: -10px;
     }
@@ -269,7 +269,7 @@
 
     }
 
-    .ts {
+    .team-size {
         margin-bottom: 30px;
     }
 
